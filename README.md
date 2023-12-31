@@ -9,6 +9,8 @@ Although plugins like this already exist, I thought it would be fun to build one
 ## TODO
 - keep track of the day
 - tally login counts
+
+## Roadmap
 - persist data
 - permission to display data
 - display data on login
