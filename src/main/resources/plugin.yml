@@ -1,0 +1,5 @@
+name: Stats
+version: '${project.version}'
+main: com.playtheatria.nessxxiii.stats.Stats
+api-version: 1.20
+description: Log in stats for Theatria
