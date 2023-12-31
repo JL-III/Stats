@@ -6,8 +6,12 @@ public final class Stats extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        // todo: initialize timers, listeners, commands, etc.
+    }
 
+    @Override
+    public void onDisable() {
+        // todo: persist data & clean up
     }
     
 }
