@@ -13,3 +13,9 @@ Although plugins like this already exist, I thought it would be fun to build one
 - permission to display data
 - display data on login
 - display data on request
+- keep track of weekly, monthly, and yearly login counts
+  - rolling year, instead of calendar year
+- login streaks?
+- streak rewards?
+- broadcast login streaks?
+- broadcast streak rewards?
