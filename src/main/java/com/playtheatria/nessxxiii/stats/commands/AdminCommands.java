@@ -34,7 +34,10 @@ public class AdminCommands implements CommandExecutor {
             }
         }
         sender.sendMessage("number of unique logins: " + statManager.getLogins());
-        sender.sendMessage("time left in day: " + Utils.calculateDelayUntilEndOfDay() + " seconds");
+        sender.sendMessage("time left in day: "
+                + Utils.calculateDelayUntilEndOfDay() / 3600 + " hours, "
+                + (Utils.calculateDelayUntilEndOfDay() % 3600) / 60 + " minutes, "
+                + (Utils.calculateDelayUntilEndOfDay() % 60) + " seconds");
         sender.sendMessage(ChatColor.LIGHT_PURPLE + "<------------------ debug info end ------------------>");
         return true;
     }
