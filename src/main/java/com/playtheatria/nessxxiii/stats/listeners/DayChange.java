@@ -22,5 +22,6 @@ public class DayChange implements Listener {
     public void onDayChange(DayChangeEvent event) {
         statManager.setTimer(new DailyTimer(plugin));
         statManager.resetLogins();
+        statManager.resetPlayers();
     }
 }

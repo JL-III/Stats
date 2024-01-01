@@ -24,7 +24,7 @@ public class AdminCommands implements CommandExecutor {
             sender.sendMessage("Invalid number of arguments.");
             return true;
         }
-        sender.sendMessage("Number of logins: " + statManager.getLogins());
+        sender.sendMessage("Number of unique logins: " + statManager.getLogins());
         sender.sendMessage("Time left in day: " + Utils.calculateDelayUntilEndOfDay() + " seconds");
         return true;
     }
