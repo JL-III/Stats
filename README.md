@@ -9,6 +9,7 @@ Although plugins like this already exist, I thought it would be fun to build one
 ## TODO
 - keep track of the day
 - tally login counts
+- reset counts at the top of the day
 
 ## Roadmap
 - persist data

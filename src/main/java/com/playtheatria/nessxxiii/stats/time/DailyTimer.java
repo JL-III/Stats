@@ -1,33 +1,45 @@
 package com.playtheatria.nessxxiii.stats.time;
 
 import com.playtheatria.nessxxiii.stats.Stats;
+import com.playtheatria.nessxxiii.stats.events.DayChangeEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 public class DailyTimer {
 
     private final Stats plugin;
 
-    private Date day;
+    private final long timeLeft;
 
-    // will there be a day manager? something that constructs a new day object every day?
-    // should we store the statistics in this timer? is that a violation of concerns?
-    // some other mechanism will still need to account for missing days, unless we just leave that data blank?
+    // logic for daily timer
+    // when timer runs out, fire DayChangeEvent
 
     public DailyTimer(Stats plugin) {
         this.plugin = plugin;
+        this.timeLeft = calculateDelayUntilEndOfDay();
+        run();
     }
 
-    // todo: this appears fine at first glance but becomes problematic when you consider things like server down time etc.
-    // i think first we need to determine the day for the timer, the timer needs to store this day? and then we can figure out how much time is left in the day before the timer runs again
+    public void run() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                plugin.getServer().getPluginManager().callEvent(new DayChangeEvent());
+            }
+        }.runTaskLater(plugin, timeLeft);
+    }
 
-//    public void run() {
-//        new BukkitRunnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }.runTaskTimerAsynchronously(plugin, 0, 20 * 60 * 60 * 24);
-//    }
+    private long calculateDelayUntilEndOfDay() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endOfDay = LocalDateTime.of(now.toLocalDate(), LocalTime.MAX);
+        return ChronoUnit.SECONDS.between(now, endOfDay);
+    }
+
+    public long getTimeLeft() {
+        return timeLeft;
+    }
+
 }
