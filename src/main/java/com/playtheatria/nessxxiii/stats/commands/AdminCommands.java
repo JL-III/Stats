@@ -9,6 +9,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.UUID;
+
 public class AdminCommands implements CommandExecutor {
 
     private StatManager statManager;
@@ -32,6 +34,10 @@ public class AdminCommands implements CommandExecutor {
             if (task.getOwner().getName().equalsIgnoreCase("stats")) {
                 sender.sendMessage("current tasks: " + task.getOwner().getName() + " - task id: " + task.getTaskId());
             }
+        }
+        sender.sendMessage("players logged in today: ");
+        for (UUID uuid : statManager.getPlayers()) {
+            sender.sendMessage("- " + Bukkit.getOfflinePlayer(uuid).getName());
         }
         sender.sendMessage("number of unique logins: " + statManager.getLogins());
         sender.sendMessage("time left in day: "
