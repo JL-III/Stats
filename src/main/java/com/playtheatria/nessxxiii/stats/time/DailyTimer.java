@@ -26,7 +26,7 @@ public class DailyTimer {
             public void run() {
                 plugin.getServer().getPluginManager().callEvent(new DayChangeEvent());
             }
-        }.runTaskLater(plugin, timeLeft);
+        }.runTaskLater(plugin, timeLeft * 20);
     }
 
     public long getTimeLeft() {
