@@ -31,9 +31,10 @@ public class AdminCommands implements CommandExecutor {
             return true;
         }
         sender.sendMessage(ChatColor.LIGHT_PURPLE + "<----------------- debug info start ----------------->");
+        sender.sendMessage("current tasks: ");
         for (BukkitTask task : Bukkit.getScheduler().getPendingTasks()) {
             if (task.getOwner().getName().equalsIgnoreCase("stats")) {
-                sender.sendMessage("current tasks: " + task.getOwner().getName() + " - task id: " + task.getTaskId());
+                sender.sendMessage(task.getOwner().getName().toLowerCase() + " - task id: " + task.getTaskId());
             }
         }
         sender.sendMessage("yesterday's unique logins: " + statManager.getYesterdayLogins());
