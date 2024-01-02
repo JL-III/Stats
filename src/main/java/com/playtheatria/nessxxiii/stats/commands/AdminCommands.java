@@ -8,19 +8,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class AdminCommands implements CommandExecutor {
 
-    private StatManager statManager;
+    private final StatManager statManager;
 
     public AdminCommands(StatManager statManager) {
         this.statManager = statManager;
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (!sender.hasPermission("stats.admin")) {
             sender.sendMessage("You do not have permission to use this command.");
             return true;
@@ -35,8 +36,9 @@ public class AdminCommands implements CommandExecutor {
                 sender.sendMessage("current tasks: " + task.getOwner().getName() + " - task id: " + task.getTaskId());
             }
         }
+        sender.sendMessage("yesterday's unique logins: " + statManager.getYesterdayLogins());
         sender.sendMessage("players logged in today: ");
-        for (UUID uuid : statManager.getPlayers()) {
+        for (UUID uuid : statManager.getPlayersList()) {
             sender.sendMessage("- " + Bukkit.getOfflinePlayer(uuid).getName());
         }
         sender.sendMessage("number of unique logins: " + statManager.getLogins());

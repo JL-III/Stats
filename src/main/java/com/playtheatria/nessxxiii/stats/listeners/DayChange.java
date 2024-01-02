@@ -20,8 +20,14 @@ public class DayChange implements Listener {
 
     @EventHandler
     public void onDayChange(DayChangeEvent event) {
+
+        // transition today's logins to yesterday's logins
+        statManager.setYesterdayLogins(statManager.getLogins());
+
+        // reset timer, logins, and playerslist
         statManager.setTimer(new DailyTimer(plugin));
         statManager.resetLogins();
-        statManager.resetPlayers();
+        statManager.resetPlayersList();
+
     }
 }

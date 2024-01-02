@@ -10,13 +10,16 @@ public class StatManager {
 
     private DailyTimer dailyTimer;
 
-    private final CopyOnWriteArrayList<UUID> players = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<UUID> playersList = new CopyOnWriteArrayList<>();
 
     private int logins;
+
+    private int yesterdayLogins;
 
     public StatManager(Stats plugin) {
         this.dailyTimer = new DailyTimer(plugin);
         this.logins = 0;
+        this.yesterdayLogins = 0;
     }
 
     public void setTimer(DailyTimer dailyTimer) {
@@ -40,15 +43,23 @@ public class StatManager {
     }
 
     public void addPlayer(UUID uuid) {
-        players.add(uuid);
+        playersList.add(uuid);
     }
 
-    public void resetPlayers() {
-        players.clear();
+    public void resetPlayersList() {
+        playersList.clear();
     }
 
-    public CopyOnWriteArrayList<UUID> getPlayers() {
-        return players;
+    public CopyOnWriteArrayList<UUID> getPlayersList() {
+        return playersList;
+    }
+
+    public int getYesterdayLogins() {
+        return yesterdayLogins;
+    }
+
+    public void setYesterdayLogins(int yesterdayLogins) {
+        this.yesterdayLogins = yesterdayLogins;
     }
 
 }

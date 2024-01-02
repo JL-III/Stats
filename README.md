@@ -7,15 +7,11 @@ keeps track of unique login counts for the day
 Although plugins like this already exist, I thought it would be fun to build one myself.
 
 ## TODO
-- keep track of the day
-- tally login counts
-- reset counts at the top of the day
+- permission to display data
+- display data on login
 
 ## Roadmap
 - persist data
-- permission to display data
-- display data on login
-- display data on request
 - keep track of weekly, monthly, and yearly login counts
   - rolling year, instead of calendar year
 - login streaks?

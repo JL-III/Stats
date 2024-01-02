@@ -19,10 +19,4 @@ public final class Stats extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerLogIn(statManager), this);
         Bukkit.getPluginManager().registerEvents(new DayChange(this, statManager), this);
     }
-
-    @Override
-    public void onDisable() {
-        // todo: persist data & clean up
-    }
-    
 }

@@ -16,7 +16,7 @@ public class PlayerLogIn implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent event) {
-        if (statManager.getPlayers().contains(event.getPlayer().getUniqueId())) {
+        if (statManager.getPlayersList().contains(event.getPlayer().getUniqueId())) {
             Bukkit.getConsoleSender().sendMessage("Player " + event.getPlayer().getName() + " has already logged in once today.");
             return;
         }
