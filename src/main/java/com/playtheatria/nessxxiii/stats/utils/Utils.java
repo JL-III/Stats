@@ -11,5 +11,4 @@ public class Utils {
         LocalDateTime endOfDay = LocalDateTime.of(now.toLocalDate(), LocalTime.MAX);
         return ChronoUnit.SECONDS.between(now, endOfDay);
     }
-
 }

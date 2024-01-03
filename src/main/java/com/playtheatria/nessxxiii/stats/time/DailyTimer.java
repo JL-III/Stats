@@ -32,5 +32,4 @@ public class DailyTimer {
     public long getTimeLeft() {
         return timeLeft;
     }
-
 }

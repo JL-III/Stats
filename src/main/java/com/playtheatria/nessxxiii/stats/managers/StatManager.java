@@ -61,5 +61,4 @@ public class StatManager {
     public void setYesterdayLogins(int yesterdayLogins) {
         this.yesterdayLogins = yesterdayLogins;
     }
-
 }
