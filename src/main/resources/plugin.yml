@@ -4,7 +4,7 @@ main: com.playtheatria.nessxxiii.stats.Stats
 api-version: '1.20'
 description: Log in stats for Theatria
 commands:
-  astats:
+  stats:
     description: Shows your stats
     usage: /<command>
     aliases: [stats]

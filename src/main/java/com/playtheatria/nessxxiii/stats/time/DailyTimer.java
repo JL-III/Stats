@@ -2,21 +2,20 @@ package com.playtheatria.nessxxiii.stats.time;
 
 import com.playtheatria.nessxxiii.stats.Stats;
 import com.playtheatria.nessxxiii.stats.events.DayChangeEvent;
-import com.playtheatria.nessxxiii.stats.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.time.LocalDate;
 
 public class DailyTimer {
 
     private final Stats plugin;
 
-    private final long timeLeft;
-
-    // logic for timer
-    // when timer runs out, fire DayChangeEvent
+    LocalDate currentDate;
 
     public DailyTimer(Stats plugin) {
         this.plugin = plugin;
-        this.timeLeft = Utils.calculateDelayUntilEndOfDay();
+        this.currentDate = LocalDate.now();
         run();
     }
 
@@ -24,12 +23,16 @@ public class DailyTimer {
         new BukkitRunnable() {
             @Override
             public void run() {
-                plugin.getServer().getPluginManager().callEvent(new DayChangeEvent());
+                if (currentDate.isBefore(LocalDate.now())) {
+                    currentDate = LocalDate.now();
+                    Bukkit.getConsoleSender().sendMessage("Day changed to " + currentDate);
+                    plugin.getServer().getPluginManager().callEvent(new DayChangeEvent());
+                }
             }
-        }.runTaskLater(plugin, timeLeft * 20);
+        }.runTaskTimer(plugin, 20, 20);
     }
 
-    public long getTimeLeft() {
-        return timeLeft;
+    public LocalDate getLocalDate() {
+        return currentDate;
     }
 }

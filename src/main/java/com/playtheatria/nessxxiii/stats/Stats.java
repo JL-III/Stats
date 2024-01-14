@@ -3,7 +3,9 @@ package com.playtheatria.nessxxiii.stats;
 import com.playtheatria.nessxxiii.stats.commands.AdminCommands;
 import com.playtheatria.nessxxiii.stats.listeners.DayChange;
 import com.playtheatria.nessxxiii.stats.listeners.PlayerLogIn;
-import com.playtheatria.nessxxiii.stats.managers.StatManager;
+import com.playtheatria.nessxxiii.stats.managers.ConfigManager;
+import com.playtheatria.nessxxiii.stats.managers.StatsManager;
+import com.playtheatria.nessxxiii.stats.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,10 +15,15 @@ public final class Stats extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        ConfigManager configManager = new ConfigManager(this);
+//        if (!Utils.databaseConfigIsValid(configManager)) {
+//            Bukkit.getPluginManager().disablePlugin(this);
+//            return;
+//        }
         // todo: initialize timers, listeners, commands, etc.
-        StatManager statManager = new StatManager(this);
-        Objects.requireNonNull(getCommand("astats")).setExecutor(new AdminCommands(statManager));
-        Bukkit.getPluginManager().registerEvents(new PlayerLogIn(statManager), this);
-        Bukkit.getPluginManager().registerEvents(new DayChange(this, statManager), this);
+        StatsManager statsManager = new StatsManager(this);
+        Objects.requireNonNull(getCommand("stats")).setExecutor(new AdminCommands(statsManager));
+        Bukkit.getPluginManager().registerEvents(new PlayerLogIn(statsManager), this);
+        Bukkit.getPluginManager().registerEvents(new DayChange(this, statsManager), this);
     }
 }

@@ -3,10 +3,11 @@ package com.playtheatria.nessxxiii.stats.managers;
 import com.playtheatria.nessxxiii.stats.Stats;
 import com.playtheatria.nessxxiii.stats.time.DailyTimer;
 
+import java.time.LocalDate;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class StatManager {
+public class StatsManager {
 
     private DailyTimer dailyTimer;
 
@@ -16,7 +17,7 @@ public class StatManager {
 
     private int yesterdayLogins;
 
-    public StatManager(Stats plugin) {
+    public StatsManager(Stats plugin) {
         this.dailyTimer = new DailyTimer(plugin);
         this.logins = 0;
         this.yesterdayLogins = 0;
@@ -26,8 +27,8 @@ public class StatManager {
         this.dailyTimer = dailyTimer;
     }
 
-    public long getTimeLeft() {
-        return dailyTimer.getTimeLeft();
+    public LocalDate getLocalDate() {
+        return dailyTimer.getLocalDate();
     }
 
     public int getLogins() {

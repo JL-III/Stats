@@ -1,6 +1,7 @@
 package com.playtheatria.nessxxiii.stats.commands;
 
-import com.playtheatria.nessxxiii.stats.managers.StatManager;
+import com.playtheatria.nessxxiii.stats.events.DayChangeEvent;
+import com.playtheatria.nessxxiii.stats.managers.StatsManager;
 import com.playtheatria.nessxxiii.stats.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,10 +15,10 @@ import java.util.UUID;
 
 public class AdminCommands implements CommandExecutor {
 
-    private final StatManager statManager;
+    private final StatsManager statsManager;
 
-    public AdminCommands(StatManager statManager) {
-        this.statManager = statManager;
+    public AdminCommands(StatsManager statsManager) {
+        this.statsManager = statsManager;
     }
 
     @Override
@@ -26,28 +27,35 @@ public class AdminCommands implements CommandExecutor {
             sender.sendMessage("You do not have permission to use this command.");
             return true;
         }
-        if (args.length != 0) {
-            sender.sendMessage("Invalid number of arguments.");
+        if (args.length == 0) {
+            sender.sendMessage(ChatColor.LIGHT_PURPLE + "<----------------- debug info start ----------------->");
+            sender.sendMessage("current day: " + statsManager.getLocalDate());
+            sender.sendMessage("current tasks: ");
+            for (BukkitTask task : Bukkit.getScheduler().getPendingTasks()) {
+                if (task.getOwner().getName().equalsIgnoreCase("stats")) {
+                    sender.sendMessage("  - " + task.getOwner().getName().toLowerCase() + " - task id: " + task.getTaskId());
+                }
+            }
+            sender.sendMessage("yesterday's unique logins: " + statsManager.getYesterdayLogins());
+            sender.sendMessage("players logged in today: ");
+            for (UUID uuid : statsManager.getPlayersList()) {
+                sender.sendMessage("  - " + Bukkit.getOfflinePlayer(uuid).getName());
+            }
+            sender.sendMessage("number of unique logins: " + statsManager.getLogins());
+            sender.sendMessage(ChatColor.LIGHT_PURPLE + "<------------------ debug info end ------------------>");
             return true;
         }
-        sender.sendMessage(ChatColor.LIGHT_PURPLE + "<----------------- debug info start ----------------->");
-        sender.sendMessage("current tasks: ");
-        for (BukkitTask task : Bukkit.getScheduler().getPendingTasks()) {
-            if (task.getOwner().getName().equalsIgnoreCase("stats")) {
-                sender.sendMessage(task.getOwner().getName().toLowerCase() + " - task id: " + task.getTaskId());
-            }
+        if (args.length == 1 && args[0].equalsIgnoreCase("event")) {
+            sender.sendMessage("firing new day change event");
+            Bukkit.getPluginManager().callEvent(new DayChangeEvent());
+            return true;
         }
-        sender.sendMessage("yesterday's unique logins: " + statManager.getYesterdayLogins());
-        sender.sendMessage("players logged in today: ");
-        for (UUID uuid : statManager.getPlayersList()) {
-            sender.sendMessage("- " + Bukkit.getOfflinePlayer(uuid).getName());
+        if (args.length == 1 && args[0].equalsIgnoreCase("add")) {
+            sender.sendMessage("incrementing login count");
+            statsManager.incrementLogins();
+            return true;
         }
-        sender.sendMessage("number of unique logins: " + statManager.getLogins());
-        sender.sendMessage("time left in day: "
-                + Utils.calculateDelayUntilEndOfDay() / 3600 + " hours, "
-                + (Utils.calculateDelayUntilEndOfDay() % 3600) / 60 + " minutes, "
-                + (Utils.calculateDelayUntilEndOfDay() % 60) + " seconds");
-        sender.sendMessage(ChatColor.LIGHT_PURPLE + "<------------------ debug info end ------------------>");
+
         return true;
     }
 }

@@ -1,0 +1,6 @@
+debug: true
+
+database:
+  url: ""
+  username: ""
+  password: ""
