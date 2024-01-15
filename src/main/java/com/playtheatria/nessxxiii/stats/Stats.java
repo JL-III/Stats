@@ -3,6 +3,7 @@ package com.playtheatria.nessxxiii.stats;
 import com.playtheatria.nessxxiii.stats.commands.AdminCommands;
 import com.playtheatria.nessxxiii.stats.listeners.DayChange;
 import com.playtheatria.nessxxiii.stats.listeners.PlayerLogIn;
+import com.playtheatria.nessxxiii.stats.listeners.PlayerTeleport;
 import com.playtheatria.nessxxiii.stats.managers.ConfigManager;
 import com.playtheatria.nessxxiii.stats.managers.StatsManager;
 import com.playtheatria.nessxxiii.stats.utils.Utils;
@@ -25,5 +26,6 @@ public final class Stats extends JavaPlugin {
         Objects.requireNonNull(getCommand("stats")).setExecutor(new AdminCommands(statsManager));
         Bukkit.getPluginManager().registerEvents(new PlayerLogIn(statsManager), this);
         Bukkit.getPluginManager().registerEvents(new DayChange(this, statsManager), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerTeleport(), this);
     }
 }

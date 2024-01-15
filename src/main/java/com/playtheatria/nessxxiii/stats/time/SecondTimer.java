@@ -7,13 +7,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.time.LocalDate;
 
-public class DailyTimer {
+public class SecondTimer {
 
     private final Stats plugin;
 
     LocalDate currentDate;
 
-    public DailyTimer(Stats plugin) {
+    public SecondTimer(Stats plugin) {
         this.plugin = plugin;
         this.currentDate = LocalDate.now();
         run();

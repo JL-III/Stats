@@ -3,7 +3,7 @@ package com.playtheatria.nessxxiii.stats.listeners;
 import com.playtheatria.nessxxiii.stats.Stats;
 import com.playtheatria.nessxxiii.stats.events.DayChangeEvent;
 import com.playtheatria.nessxxiii.stats.managers.StatsManager;
-import com.playtheatria.nessxxiii.stats.time.DailyTimer;
+import com.playtheatria.nessxxiii.stats.time.SecondTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,7 +36,7 @@ public class DayChange implements Listener {
         // transition today's logins to yesterday's logins
         statsManager.setYesterdayLogins(statsManager.getLogins());
         // reset timer, logins, and playerslist
-        statsManager.setTimer(new DailyTimer(plugin));
+        statsManager.setTimer(new SecondTimer(plugin));
         statsManager.resetLogins();
         statsManager.resetPlayersList();
     }
